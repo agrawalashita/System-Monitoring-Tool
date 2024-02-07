@@ -1,0 +1,18 @@
+dd if=/dev/zero of=mydisk.img bs=1M count=100
+
+# Associate the image with a loop device
+sudo losetup -f --show mydisk.img
+
+# Create a filesystem on the loop device
+sudo mkfs.ext4 /dev/loopX
+
+# Mount the loop device
+sudo mkdir /mnt/loop_mount
+sudo mount /dev/loopX /mnt/loop_mount
+
+
+# Read
+sudo dd if=/dev/loop8 of=/dev/null bs=1M count=10
+
+# Write
+sudo cp file1 /mnt/loop_mount/
